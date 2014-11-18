@@ -1,0 +1,70 @@
+Instructions for Laser Locking users                    Last Updated 11/10/2014
+--------------------------------
+This module is the central EPICS software for the laser locking system widely
+deployed by Joe Frisch and associated with the Coherent Vitara system. It does
+not contain hardware support, but wraps PVs from several other pieces of hardware
+support. The following components need to be configured before this module can
+be used:
+- agilent53210a frequency counter
+- sr620 time interval counter
+- ip330 analog input
+- ip231 analog output
+- EVR triggers for ip330 and time interval counter
+- IMS motor control for the phase control motor
+- XPS motor control for the Vitara cavity length motor
+
+I - Adding the agilent53210a package to your IOC application:
+--------------------------------------------------------
+(1)Link asyn and streamdevice libraries into your app by adding to 
+    xxxApp/src/Makefile:
+
+   xxx_LIBS += asyn
+   xxx_LIBS += stream
+   USR_SYS_LIBS += pcre (dependency of streamdevice)
+   
+Note that the order of the above libraries is important.
+
+(2) Add the following .dbd files to xxxApp/src/Makefile 
+    or to xxxApp/src/xxxInclude.dbd:
+
+   xxx_DBD += stream.dbd
+   xxx_DBD += asyn.dbd
+   xxx_DBD += drvAsynIPPort.dbd
+   xxx_DBD += drvVxi11.dbd
+   xxx_DBD += drvAsynSerialPort.dbd
+
+(4) Add Hp53131A protocol and databases to your application. In your xxxApp/Db/Makefile add:
+
+   DB_INSTALLS += agilent53210a.proto.db
+   DB_INSTALLS += Myagilent53210a.substitutions
+    or
+   DB += Myagilent53210aEX.db
+  
+    For an example see:
+   	agilent53210a/<release>/db/agilent53210aEX.substitutions
+
+
+III - Adding agilent53210a database and network configuration to your IOC startup file:
+---------------------------------------------------------------------------------
+(1) Add protocol path
+
+## Location of stream protocol files
+epicsEnvSet "STREAM_PROTOCOL_PATH", "${TOP}/db"
+
+(2) Add asyn network configuration before iocInit.
+
+	# ======================================================
+	# Agilent 53220A (Frequency counter)
+	# ======================================================
+	
+	drvAsynIPPortConfigure ("<port>","<node_name>:5024")
+
+    Note that the <port> must match the $PORT macro in the substitutions file.
+    Each asyn device within an IOC must have a unique port name. Usually "agilFC".
+
+(3) Before iocInit(), load the database file
+	dbLoadTemplate("db/Agilent5322.substitutions")
+
+(4) A test EDM display is available for diagnostics:
+    agilent53210a/<release>/agilent53210App/srcDisplay/agilent53210a.edl
+    It requires a $(DEV) macro that matches $(DEVICE) in agilent53210aEX.substitutions.

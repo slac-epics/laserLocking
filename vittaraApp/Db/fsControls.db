@@ -1,0 +1,333 @@
+#
+# Dedicated PV's for femtosecond controls
+# Replaces matlab PVs:  SIOC:SYS0:ML01:AO480 to AO493
+#
+
+# SIOC:SYS0:ML01:AO480
+# Watchdog counter, increments when the code is running, set to
+# zero to kill the code. Locks against multiple copies
+record( longout, "$(P):FS_WATCHDOG" )
+{
+	field( DESC, "Watchdog counter" )
+	field( VAL,  "0" )
+	field( EGU,  "counts" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV")
+}
+
+
+# SIOC:SYS0:ML01:AO481
+# This is the correct frequency counter frequency
+# used to guard against accidental incorrect entries.
+record( ao, "$(P):FS_OSC_TGT_FREQ" )
+{
+	field( DESC, "Osc. Target Freq" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "Hz" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+
+# SIOC:SYS0:ML01:AO482
+# The time (in nanoseconds) for the laser pulse. Setting this
+# will change phase shifts (and if enabled, triggers) to produce a laser
+# output pulse at this time as measured on the frequency counter
+record( ao, "$(P):FS_TGT_TIME" )
+{
+	field( DESC, "Target Time (Phase Offset)" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+# SIOC:SYS0:ML01:AO483
+# Use for calibration.  This should NOT be on a top level panel.
+# Toggle to 1 to run a calibration cycle
+# Set back to zero automatically when done
+record( bo, "$(P):FS_START_CALIB" )
+{
+	field( DESC, "Start Calib." )
+	field( VAL,  "0" )
+	field( ZNAM, "Ready" )
+	field( ONAM, "Calibrating" )
+	field( ZSV,  "NO_ALARM" )
+	field( OSV,  "MINOR" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+
+# SIOC:SYS0:ML01:AO484
+# Enable time control
+# When this is 0, the high level app does not attempt to control the laser time and it can be operated manually (interaction with calibration and bucket jump detection has not been checked).
+record( bo, "$(P):FS_ENABLE_TIME_CTRL" )
+{
+	field( DESC, "Enable time control" )
+	field( VAL,  "0" )
+	field( ZNAM, "Disabled" )
+	field( ONAM, "Enabled" )
+	field( ZSV,  "MINOR" )
+	field( OSV,  "NO_ALARM" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+
+# SIOC:SYS0:ML01:AO485
+# Set to 1 to indicate when the software is busy - not fully
+# implemented yet
+record( bo, "$(P):FS_CTRL_BUSY" )
+{
+	field( DESC, "FS Control Busy" )
+	field( VAL,  "0" )
+	field( ZNAM, "Idle" )
+	field( ONAM, "Busy" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+# Time Interval Counter measurement error range
+# Monitor for bucket jumps
+record( ao, "$(P):FS_TIC_ERROR" )
+{
+	field( DESC, "TIC Meas. Range." )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ticks" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+# SIOC:SYS0:ML01:AO486
+# Timing error
+# Difference between measured laser time (on interval counter) and desired time.
+# Indicates any errors on the timing control.
+# Note that the time interval counter only has ~10ps resolution
+# so this is used to detect large jumps.
+# The actual laser stability is
+# much better than 1ps, but can't be measured this way
+record( ao, "$(P):FS_TIMING_ERROR" )
+{
+	field( DESC, "Timing Error" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+
+# SIOC:SYS0:ML01:AO487
+# Laser OK
+# signal levels are OK for the loop to operate
+record( bo, "$(P):FS_LASER_OK" )
+{
+	field( DESC, "Laser signal level OK" )
+	field( VAL,  "0" )
+	field( ZNAM, "Low" )
+	field( ONAM, "OK" )
+	field( ZSV,  "MINOR" )
+	field( OSV,  "NO_ALARM" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+# SIOC:SYS0:ML01:AO487.DESC
+# string PV to indicate the latest error
+# Note: Could change to a waveform of characters for longer strings
+record( stringout, "$(P):FS_STATUS" )
+{
+	field( DESC, "FS Control Status" )
+	field( VAL,  "" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC")
+}
+
+
+# SIOC:SYS0:ML01:AO488
+# set to 1 (toggle) to enable automatic bucket correction.
+record( bo, "$(P):FS_ENABLE_BUCKET_FIX" )
+{
+	field( DESC, "Auto bucket corr." )
+	field( VAL,  "0" )
+	field( ZNAM, "Disabled" )
+	field( ONAM, "Enabled" )
+	field( ZSV,  "MINOR" )
+	field( OSV,  "NO_ALARM" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+
+# SIOC:SYS0:ML01:AO489
+# trigger delay
+# (not on top panel)..
+# Internal program information on timing delays
+record( ao, "$(P):FS_TRIGGER_DELAY" )
+{
+	field( DESC, "Trigger Delay" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+
+# SIOC:SYS0:ML01:AO490
+# timing offset
+# (not on top panel)
+# Internal program information on timing delays
+record( ao, "$(P):FS_TIMING_OFFSET" )
+{
+	field( DESC, "Timing Offset" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+
+# SIOC:SYS0:ML01:AO491
+# Enable trigger control
+# If enabled the software will
+# move the trigger as well as the phase control to allow long timing moves
+record( bo, "$(P):FS_ENABLE_TRIGGER" )
+{
+	field( DESC, "Trigger Ctrl Enabled" )
+	field( VAL,  "0" )
+	field( ZNAM, "Disabled" )
+	field( ONAM, "Enabled" )
+	field( ZSV,  "MINOR" )
+	field( OSV,  "NO_ALARM" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC OSV ZSV COSV")
+}
+
+
+# SIOC:SYS0:ML01:AO492
+# Buckets error
+# In the event of a timing jump this indicates
+# how many buckets of 3808MHz (8 X 476) have been jumped
+record( longout, "$(P):FS_BUCKET_ERROR" )
+{
+	field( DESC, "Buckets of 3808MHz Error" )
+	field( VAL,  "0" )
+	field( EGU,  "buckets" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV")
+}
+
+
+# SIOC:SYS0:ML01:AO493
+# Error from integer buckets
+# If near zero, < 50ps, this indicates that the timing problem
+# is a bucket jump.
+# If larger, this indicates some other type of failure that
+# cannot be corrected with bucket changes.
+record( ao, "$(P):FS_UNFIXED_ERROR" )
+{
+	field( DESC, "Err from integer buckets" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ps" )
+	field( HIGH, "50" )
+	field( HIHI, "200" )
+	field( HSV,  "MINOR" )
+	field( HHSV, "MAJOR" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+#SIOC:SYS0:ML01:AO494
+# Bucket corrects since reset
+record( longout, "$(P):FS_CORRECTION_CNT" )
+{
+	field( DESC, "Bucket corrects since reset" )
+	field( VAL,  "0" )
+	field( EGU,  "corrects" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV")
+}
+
+#SIOC:SYS0:ML01:AO495
+# Phase Degrees S band control
+record( ao, "$(P):PDES" )
+{
+	field( DESC, "Degrees S band control" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "deg 2856 MHz" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+#SIOC:SYS0:ML01:AO496
+# Phase Offset Control (degrees)
+record( ao, "$(P):POC" )
+{
+	field( DESC, "Phase Offset Control (degrees)" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "deg 2856 MHz" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+#SIOC:SYS0:ML01:AO497
+# ns offset
+record( ao, "$(P):FS_NS_OFFSET" )
+{
+	field( DESC, "Phase offset (ns)" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+#SIOC:SYS0:ML01:AO498
+# Enable recovery from bcs trips
+# If enabled the software will
+# fix bcs trips resulting from timing shifts
+record( bo, "$(P):FS_ENABLE_BCS_FIX" )
+{
+	field( DESC, "BCS fix Enable" )
+	field( VAL,  "0" )
+	field( ZNAM, "Disabled" )
+	field( ONAM, "Enabled" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC ZSV OSV")
+}
+
+#SIOC:SYS0:ML01:AO499
+# last calibration error ns
+record( ao, "$(P):FS_CALIB_ERROR" )
+{
+	field( DESC, "last calibration error ns" )
+	field( VAL,  "0.0" )
+	field( PREC, "6" )
+	field( EGU,  "ns" )
+	field( HIGH, "50" )
+	field( HIHI, "200" )
+	field( HSV,  "MINOR" )
+	field( HHSV, "MAJOR" )
+	field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( waveform, "$(P):FS_CALIB_DATA" )
+{
+	field( DESC, "last calibration error ns" )
+	field( PREC, "6" )
+	field( NELM, "10000" )
+	field( FTVL, "DOUBLE" )
+	field( PINI, "YES" )
+	info( autosaveFields, "VAL DESC EGU PREC" )
+}
+

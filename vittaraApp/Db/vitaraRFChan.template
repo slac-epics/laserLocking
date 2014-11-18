@@ -1,0 +1,78 @@
+#
+# vitaraRFChan.template
+#
+# Required Macros:
+#	CH				PV prefix for this RF channel
+#	CH_DIODE		Analog Input  for RF Channel Diode Power
+#	CH_GAIN			Analog Output for RF Channel Gain
+#	CH_PHASE		Analog Input  for RF Channel Phase
+#	CH_PHASE_X30	Analog Input  for RF Channel Phase times 30
+#	CH_RF_PWR		Analog Input  for RF Channel RF Power
+
+record( ai, "$(CH)DIODE_PWR" )
+{
+	field( DESC, "Diode Power" )
+	field( INP,  "$(CH_DIODE) CP MS" )
+	field( EGU,  "V" )
+	field( PREC, "3" )
+	field( LOW,  "1.75" )
+	field( LSV,  "MINOR" )
+	field( LOLO, "1.5" )
+	field( LLSV, "MAJOR" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( ai, "$(CH)RF_PWR" )
+{
+	field( DESC, "RF Power" )
+	field( INP,  "$(CH_RF_PWR) CP MS" )
+	field( EGU,  "V" )
+	field( PREC, "3" )
+	field( LOW,  "1.25" )
+	field( LSV,  "MINOR" )
+	field( LOLO, "1.0" )
+	field( LLSV, "MAJOR" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( ai, "$(CH)PHASE" )
+{
+	field( DESC, "RF Phase" )
+	field( INP,  "$(CH_PHASE) CP MS" )
+	field( EGU,  "V" )
+	field( PREC, "3" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( ai, "$(CH)PHASE_X30" )
+{
+	field( DESC, "RF Phase X30" )
+	field( INP,  "$(CH_PHASE_X30) CP MS" )
+	field( EGU,  "V" )
+	field( PREC, "3" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( calc, "$(CH)CALC_PHASE" )
+{
+	field( DESC, "Scaled phase calculation" )
+	field( INPA, "$(CH)PHASE_X30 CP" )
+	field( INPB, "$(CH)RF_PWR NPP" )
+	field( INPC, "$(CH)DIODE_PWR NPP" )
+	field( CALC, "(B*C)?(1000*A/SQR(B*C/2)):0" )
+	field( EGU,  "fs" )
+	field( PREC, "3" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+# In LCLS, this is an IP231 output in the Laser app on ioc-lr20-ls01. Needs to be renamed.
+record( ao, "$(CH)FEEDBACK_GAIN" )
+{
+	field( DESC, "RF Feedback Gain" )
+	field( OUT,  "$(CH_GAIN) CA MS" )
+	field( EGU,  "V" )
+	field( VAL,  "10.0" )
+	field( PREC, "3" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC VAL")
+}
+

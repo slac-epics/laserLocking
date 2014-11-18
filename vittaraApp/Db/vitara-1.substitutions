@@ -1,0 +1,74 @@
+# Vitara RF Channel substitutions
+# Required Macros:
+#	DEV				PV prefix for all vitara PV's
+#	CH_DIODE		Analog Input  for RF Channel Diode Power
+#	CH_GAIN			Analog Output for RF Channel Gain
+#	CH_PHASE		Analog Input  for RF Channel Phase
+#	CH_PHASE_X30	Analog Input  for RF Channel Phase times 30
+#	CH_RF_PWR		Analog Input  for RF Channel Power
+file vitaraRFChan.template
+{
+	{
+	CH				= "OSC:LR20:20:CH1_",
+	CH_DIODE		= "OSC:LR20:20:PD_CH1_DIODE_PWR_RBCK",
+	CH_GAIN			= "OSC:LR20:20:CH1_FEEDBACK_GAIN",
+	CH_PHASE		= "OSC:LR20:20:PD_CH1_PH_RBCK",
+	CH_PHASE_X30	= "OSC:LR20:20:PD_CH1_PH_X30_RBCK",
+	CH_RF_PWR		= "OSC:LR20:20:PD_CH1_RF_PWR_RBCK",
+	}
+}
+
+# Vitara Freq Search substitutions
+# Required Macros:
+#	DEV				PV prefix for all vitara PV's
+#	FREQ			Analog Input  for Vitara Freq Readback
+#	FREQ_MOTOR		Vitara freq motor
+#
+file vitaraFreqSearch.template
+{
+	{
+	DEV				= "OSC:LR20:20",
+	FREQ			= "OSC:LR20:20:FREQ_RBCK",
+	FREQ_MOTOR		= "OSC:LR20:20:M1_MOTR_C",
+	}
+}
+
+#
+# Macros for vitaraPID.template:
+#
+#	CH			RF Channel prefix
+#	DEV			device prefix
+#	FREQ_MOTOR	PV name of Vitara freq motor
+#	PHASE_MOTOR	PV name of phase control motor
+#	RF_LOCK		PV output that enables RF locking
+#	PIEZO_AMP_MON	Piezo Amp monitor output
+#	PIEZO_AMP_IN	Piezo Control Voltage
+# Optional macros:
+#   LOCK_ON_VAL, 0.0
+#   LOCK_OFF_VAL,5.0 Systems using an analog output as TTL signals can take
+#                    the default values for the lock enable values. Otherwise,
+#                    define these, probably as 0 and 1 for digital outputs.
+#                    Note: On the locking system, the enable line is active
+#                    low with a pulldown resistor so that it is enabled when
+#                    disconnected.
+file vitaraPID.template
+{
+	{
+	CH				= "OSC:LR20:20:CH1_",
+	DEV				= "OSC:LR20:20",
+	FREQ_MOTOR		= "OSC:LR20:20:M1_MOTR_C",
+	PHASE_MOTOR		= "OSC:LR20:20:M1_MOTR_IQ",
+	RF_LOCK			= "OSC:LR20:20:PID_MODE",
+	PIEZO_AMP_IN		= "OSC:LR20:20:M2_PID_OUTPUT",
+	PIEZO_AMP_MON		= "OSC:LR20:20:M2_AMP_OUTPUT"
+	}
+}
+
+file vitaraAuto.template
+{
+	{
+	CH				= "OSC:LR20:20:CH1_",
+	DEV				= "OSC:LR20:20",
+	FREQ_MOTOR		= "OSC:LR20:20:M1_MOTR_C",
+	}
+}

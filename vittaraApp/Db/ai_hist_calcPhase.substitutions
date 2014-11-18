@@ -1,0 +1,21 @@
+#
+# ai_hist_calcPhase.substitutions
+#
+
+# We want a faster response on the statistics for this
+# for bucket jump detection
+file ai_hist_last_x.db
+{
+	{	PV="$(CH)CALC_PHASE", EGU="fs", X="60"	}
+}
+
+# Standard history PV's
+file ai_hist_pattern.db
+{
+	pattern
+	{	PV,						EGU			}
+	{	"$(CH)CALC_PHASE",		"fs"		}
+	{	"$(CH)CALC_PHASE_RMS",	"fs"		}
+	{	"$(CH)CALC_PHASE_STD",	"fs"		}
+}
+

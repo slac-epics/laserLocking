@@ -1,0 +1,45 @@
+#RELEASE Location of external products
+# Run "gnumake clean uninstall install" in the application
+# top directory each time this file is changed.
+
+# Pickup the path to your EPICS top level directory
+# This is where EPICS lives at your site.
+include $(TOP)/RELEASE_SITE
+
+TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+
+# =============================================================
+# Define location of module tree 
+# =============================================================
+EPICS_MODULES=$(MODULES_SITE_TOP)
+
+# ==============================================================
+# Define the version of EPICS BASE that you will use
+# =============================================================
+BASE_MODULE_VERSION=$(EPICS_BASE_VER)
+
+# =============================================================
+# Define the version of modules needed by
+# IOC apps or other Support apps
+# =============================================================
+
+CALC_MODULE_VERSION=calc-R3-1_1-0
+HISTORY_MODULE_VERSION=history_R2-1-0_1-0-1
+SSCAN_MODULE_VERSION=sscan-R2-8-1_1-0
+STD_MODULE_VERSION=std-R3-1_1-2
+
+# ============================================================
+# Support module locations
+# ============================================================
+#STREAMDEVICE=$(EPICS_MODULES)/streamdevice/$(STREAMDEVICE_MODULE_VERSION)
+#ASYN=$(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
+CALC=$(EPICS_MODULES)/calc/$(CALC_MODULE_VERSION)
+HISTORY=$(EPICS_MODULES)/history/$(HISTORY_MODULE_VERSION)
+SSCAN=$(EPICS_MODULES)/sscan/$(SSCAN_MODULE_VERSION)
+STD=$(EPICS_MODULES)/std/$(STD_MODULE_VERSION)
+
+# =================================================================
+# Define EPICS_BASE
+# EPICS_BASE usually appears last so other apps can override stuff:
+EPICS_BASE=$(BASE_SITE_TOP)/$(BASE_MODULE_VERSION)
+
