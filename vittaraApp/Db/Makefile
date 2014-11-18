@@ -13,7 +13,7 @@ include $(TOP)/configure/CONFIG
 DB += ai_hist.db
 DB += ai_hist_RFChan.db
 DB += ai_hist_calcPhase.db
-DB += fsControls.db
+DB += fsControls.template
 DB += vitaraAuto.template
 DB += vitaraFreqSearch.template
 DB += vitaraPID.template
