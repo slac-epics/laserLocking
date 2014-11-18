@@ -51,6 +51,60 @@ record(calc, "$(DEV):FREQ_ERR") {
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
+#
+# Keep FREQ_ERR Limits consistent w/ search and lock criteria
+#
+
+# Propagate FREQ_ERR.HIHI
+# to FREQ_ERR_RMS.HIHI, FREQ_ERR.LOLO, and FREQ_ERR_RMS.LOLO
+record( dfanout, "$(DEV):FREQ_ERR_UPDATE_HIHI" )
+{
+	field( OMSL, "closed_loop" )
+	field( DOL,  "$(DEV):FREQ_ERR.HIHI  CPP NMS" )
+	field( OUTA, "$(DEV):FREQ_ERR_RMS.HIHI NPP NMS" )
+	field( FLNK, "$(DEV):FREQ_ERR_CALC_LOLO" )
+}
+record( calc, "$(DEV):FREQ_ERR_CALC_LOLO" )
+{
+	field( INPA, "$(DEV):FREQ_ERR.HIHI NPP NMS" )
+	field( CALC, "-A" )
+	field( FLNK, "$(DEV):FREQ_ERR_UPDATE_LOLO" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+record( dfanout, "$(DEV):FREQ_ERR_UPDATE_LOLO" )
+{
+	field( OMSL, "closed_loop" )
+	field( DOL,  "$(DEV):FREQ_ERR_CALC_LOLO" )
+	field( OUTA, "$(DEV):FREQ_ERR.LOLO NPP NMS" )
+	field( OUTB, "$(DEV):FREQ_ERR_RMS.LOLO NPP NMS" )
+}
+
+# Propagate FREQ_TOLERANCE
+# to FREQ_ERR.HIGH, FREQ_ERR_RMS.HIGH, FREQ_ERR.LOW, and FREQ_ERR_RMS.LOW
+record( dfanout, "$(DEV):FREQ_ERR_UPDATE_HIGH" )
+{
+	field( OMSL, "closed_loop" )
+	field( DOL,  "$(DEV):FREQ_TOLERANCE CPP NMS" )
+	field( OUTA, "$(DEV):FREQ_ERR.HIGH NPP NMS" )
+	field( OUTB, "$(DEV):FREQ_ERR_RMS.HIGH NPP NMS" )
+}
+record( calc, "$(DEV):FREQ_ERR_CALC_LOW" )
+{
+	field( INPA, "$(DEV):FREQ_TOLERANCE CPP NMS" )
+	field( CALC, "-A" )
+	field( FLNK, "$(DEV):FREQ_ERR_UPDATE_LOW" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+record( dfanout, "$(DEV):FREQ_ERR_UPDATE_LOW" )
+{
+	field( OMSL, "closed_loop" )
+	field( DOL,  "$(DEV):FREQ_ERR_CALC_LOW" )
+	field( OUTA, "$(DEV):FREQ_ERR.LOW NPP NMS" )
+	field( OUTB, "$(DEV):FREQ_ERR_RMS.LOW NPP NMS" )
+	field( FLNK, "$(DEV):FREQ_ERR_UPDATE_HIGH" )
+}
+
+
 # SMOO field updated by $(DEV):FREQ_ERR_SMOOTH
 record(ai, "$(DEV):FREQ_ERR_SMOOTHED") {
   field(DESC, "Freq Err in Hz")
@@ -100,6 +154,7 @@ record(ao, "$(DEV):FREQ_MOTOR_POS_GOTO") {
   field(OUT, "$(FREQ_MOTOR).VAL PP")
   field(EGU, "mm")
   field(FLNK, "$(DEV):FREQ_RETRY_COUNTER PP NMS")
+  info(autosaveFields, "VAL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
 record(bo, "$(DEV):FREQ_SEARCH_IN_TOL") {
@@ -108,41 +163,71 @@ record(bo, "$(DEV):FREQ_SEARCH_IN_TOL") {
   field(ZSV, "MINOR")
   field(ONAM, "OK")
   field(OSV, "NO_ALARM")
+#  info(autosaveFields, "intentionally blank")
 }
 
-record(bo, "$(DEV):FREQ_SEARCH_ACTIVE") {
+record( mbbo, "$(DEV):FREQ_SEARCH_STATE" )
+{
+	field( DESC, "Freq search state" )
+	field( VAL,  "1" )
+	field( ZRVL, "0" )	field( ZRST, "Searching" )
+	field( ZRSV, "MINOR")
+	field( ONVL, "1" )	field( ONST, "Idle" )
+	field( TWVL, "2" )	field( TWST, "Found" )
+	field( THVL, "3" )	field( THST, "Failed" )
+	field( THSV, "MAJOR" )
+	field( PINI, "YES" )
+	field( FLNK, "$(DEV):FREQ_SEARCH_ACTIVE" )
+#  info(autosaveFields, "intentionally blank")
+}
+
+record( calc, "$(DEV):FREQ_SEARCH_ACTIVE" )
+{
   field(DESC, "Freq search in progress")
-  field(DTYP, "Raw Soft Channel")
-  field(ZNAM, "Idle")
-  field(ONAM, "Searching")
-  field(PINI, "YES")
+	field( INPA, "$(DEV):FREQ_SEARCH_STATE NPP MS" )
+	field( CALC, "0=A" )
+#  info(autosaveFields, "intentionally blank")
 }
 
-record(seq, "$(DEV):FREQ_SEARCH_START") {
+record( seq, "$(DEV):FREQ_SEARCH_START" )
+{
   field(DESC, "Start frequency search")
-  field(SDIS, "$(DEV):FREQ_SEARCH_ACTIVE")
-  field(VAL, "1")
   field(DOL1, "0")
   field(LNK1, "$(DEV):FREQ_RETRY_COUNTER PP")
   field(DLY2, "0.5")
-  field(DOL2, "1")
-  field(LNK2, "$(DEV):FREQ_SEARCH_ACTIVE PP")
+	field( DOL2, "0" )
+	field( LNK2, "$(DEV):FREQ_SEARCH_STATE PP" )
+#	field( DOL2, "1" )
+#	field( LNK2, "$(DEV):FREQ_SEARCH_ACTIVE PP" )
 }
 
-record(calcout, "$(DEV):FREQ_DO_RETRY") {
+record( seq, "$(DEV):FREQ_SEARCH_STOP" )
+{
+	field( DESC, "Stop frequency search" )
+	field( DOL1, "1" )
+	field( LNK1, "$(DEV):FREQ_SEARCH_STATE PP" )
+	field( DOL2, "0" )
+	field( LNK2, "$(DEV):FREQ_RETRY_COUNTER PP" )
+}
+
+record( calcout, "$(DEV):FREQ_DO_RETRY" )
+{
   field(DESC, "Retry if not at freq")
 # If motor is done moving, initiate another retry
   field(INPA, "$(FREQ_MOTOR).DMOV CA")
   field(CALC, "A==1")
-  field(SCAN, "2 second")
+	field( SCAN, "5 second" )
+
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
   field(OCAL, "1")
   field(ODLY, "2.5")
   field(OUT, "$(DEV):FREQ_MOTOR_POS_GOTO.PROC")
-# Only enabled when FREQ_SEARCH_ACTIVE
+
+	# Disabled when FREQ_SEARCH_ACTIVE is 0
   field(DISV, "0")
   field(SDIS, "$(DEV):FREQ_SEARCH_ACTIVE")
+#  info(autosaveFields, "intentionally blank")
 }
 
 # Is the frequency search within tolerance?
@@ -154,40 +239,46 @@ record(calcout, "$(DEV):FREQ_SEARCH_IN_TOL_CALC") {
   field(CALC, "abs(A) <= B")
   field(OUT, "$(DEV):FREQ_SEARCH_IN_TOL PP")
   field(FLNK, "$(DEV):FREQ_SEARCH_MONITOR PP NMS")
+#  info(autosaveFields, "intentionally blank")
 }
 
 # Monitor the frequency search and shut it down when done
 record(calcout, "$(DEV):FREQ_SEARCH_MONITOR") {
   field(DESC, "Monitor frequency search")
-  field(VAL, "0")
-  field(INPA, "$(DEV):FREQ_SEARCH_IN_TOL CP MS")
-  field(INPC, "$(FREQ_MOTOR).DMOV CP MS")
-  field(INPD, "$(DEV):FREQ_RETRY_COUNTER NPP")
-  field(INPE, "$(DEV):FREQ_RETRY_MAX")
-  field(INPF, "$(DEV):FREQ_ERR_LAST_N_STD")
-  field(INPG, "$(DEV):FREQ_TOLERANCE")
-  field(INPH, "$(DEV):FREQ_MOTOR_TGT")
-  field(INPI, "$(FREQ_MOTOR).HLM")
-  field(INPJ, "$(FREQ_MOTOR).LLM")
-  field(CALC, "(A && C) || (D>E) || (F>G) || (H>I) || (H<J)")
-  field(OUT, "$(DEV):FREQ_SEARCH_ACTIVE PP")
+	field( INPA, "$(DEV):FREQ_SEARCH_IN_TOL       NPP NMS" )
+	field( INPC, "$(FREQ_MOTOR).DMOV              NPP NMS" )
+	field( INPD, "$(DEV):FREQ_RETRY_COUNTER       NPP NMS" )
+	field( INPE, "$(DEV):FREQ_RETRY_COUNTER.HIHI  NPP NMS" )
+	field( INPF, "$(DEV):FREQ_ERR_LAST_N_STD      NPP NMS" )
+	field( INPG, "$(DEV):FREQ_ERR_LAST_N_STD.HIHI NPP NMS" )
+	field( INPH, "$(DEV):FREQ_MOTOR_TGT           NPP NMS" )
+	field( INPI, "$(FREQ_MOTOR).HLM               NPP NMS" )
+	field( INPJ, "$(FREQ_MOTOR).LLM               NPP NMS" )
+	field( CALC, "(A && C) || ((D>=E)||(F>G)||(H>I)||(H<J))" )
+	field( OCAL, "(A && C)?2:(((D>=E)||(F>G)||(H>I)||(H<J))?3:0)" )
+	field( OUT,  "$(DEV):FREQ_SEARCH_STATE PP" )
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
+	field( IVOA, "Set output to IVOV" )
+	field( IVOV, "3" )
+#  info(autosaveFields, "intentionally blank")
 }
 
 record(calc, "$(DEV):FREQ_RETRY_COUNTER") {
   field(DESC, "Number of coarse motor retries")
   field(INPA, "$(DEV):FREQ_RETRY_COUNTER NPP")
   field(CALC, "A+1")
-  field(DISV, "0")
-  field(SDIS, "$(DEV):FREQ_SEARCH_ACTIVE")
+	field( HIGH, "5" )
+	field( HIHI, "10" )
+	field( HSV,  "MINOR" )
+	field( HHSV, "MAJOR" )
   field(PINI, "YES")
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
 record(ao, "$(DEV):FREQ_RETRY_MAX") {
   field(DESC, "Number retries")
-  field(VAL, "5")
+	field( DOL,  "$(DEV):FREQ_RETRY_COUNTER.HIHI CP NMS" )
   field(PINI, "YES")
   info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }

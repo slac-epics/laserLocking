@@ -14,6 +14,10 @@ DB += ai_hist.db
 DB += ai_hist_RFChan.db
 DB += ai_hist_calcPhase.db
 DB += fsControls.db
+DB += vitaraAuto.template
+DB += vitaraFreqSearch.template
+DB += vitaraPID.template
+DB += vitaraRFChan.template
 
 #DB_INSTALLS += $(MOTOR)/db/motor.db
 

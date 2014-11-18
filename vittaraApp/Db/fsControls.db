@@ -44,6 +44,55 @@ record( ao, "$(P):FS_TGT_TIME" )
 	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
+# Dial Coordinates support for FS_TGT_TIME
+# Consists of two PVs, FS_TGT_TIME_DIAL and FS_TGT_TIME_OFFSET
+# DIAL + OFFSET = FS_TGT_TIME
+# FWDPROP calc record monitors FS_TGT_TIME and OFFSET and recalculates DIAL
+# REVPROP calc record montiors DIAL and recalculates FS_TGT_TIME
+record( ao, "$(P):FS_TGT_TIME_DIAL" )
+{
+    field( DESC, "Target Time (Dial Coord)" )
+    field( PREC, "6" )
+    field( EGU,  "ns" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( ao, "$(P):FS_TGT_TIME_OFFSET" )
+{
+    field( DESC, "Target Time Dial Offset" )
+    field( VAL,  "0" )
+    field( PREC, "6" )
+    field( EGU,  "ns" )
+    field( PINI, "YES" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( calcout, "$(P):FS_TGT_TIME_FWDPROP" )
+{
+    field( DESC, "Target Time FWD Propagation" )
+    field( INPA, "$(P):FS_TGT_TIME CP MS" )
+    field( INPB, "$(P):FS_TGT_TIME_OFFSET CP MS" )
+    field( CALC, "A-B" )
+    field( OUT,  "$(P):FS_TGT_TIME_DIAL PP MS" )
+    field( OOPT, "On Change" )
+    field( EGU,  "ns" )
+    field( PREC, "6" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
+record( calcout, "$(P):FS_TGT_TIME_REVPROP" )
+{
+    field( DESC, "Target Time REV Propagation" )
+    field( INPA, "$(P):FS_TGT_TIME_DIAL CP MS" )
+    field( INPB, "$(P):FS_TGT_TIME_OFFSET NPP MS" )
+    field( CALC, "A+B" )
+    field( OUT,  "$(P):FS_TGT_TIME PP MS" )
+    field( OOPT, "On Change" )
+    field( EGU,  "ns" )
+    field( PREC, "6" )
+	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
+
 # SIOC:SYS0:ML01:AO483
 # Use for calibration.  This should NOT be on a top level panel.
 # Toggle to 1 to run a calibration cycle
@@ -313,10 +362,6 @@ record( ao, "$(P):FS_CALIB_ERROR" )
 	field( VAL,  "0.0" )
 	field( PREC, "6" )
 	field( EGU,  "ns" )
-	field( HIGH, "50" )
-	field( HIHI, "200" )
-	field( HSV,  "MINOR" )
-	field( HHSV, "MAJOR" )
 	field( PINI, "YES" )
 	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
@@ -331,3 +376,42 @@ record( waveform, "$(P):FS_CALIB_DATA" )
 	info( autosaveFields, "VAL DESC EGU PREC" )
 }
 
+# BANNER_COLOR
+# Integer that is evaluated in EDM to color code the screens for a given
+# facility. In PCDS, this means (color names by Sherwin-Williams):
+# 0 = N/A (Lazy Gray) 
+# 1 = AMO (Blueblood)
+# 2 = SXR (Dorian Gray)
+# 3 = XPP (Straightforward Green)
+# 4 = XCS (Gutsy Grape)
+# 5 = CXI (Lusty Red)
+# 6 = MEC (Social Butterfly)
+# 7+ = Alarm (Flashing Red)
+record( longout, "$(P):BANNER_COLOR" )
+{
+    field( DESC, "EDM banner color" )
+    field( EGU,  "Units of color" )
+    field( VAL,  "$(COLOR_INDEX)" )
+}
+
+# EVR_TRIG_RATE
+# Calculates the effective trigger rate coming from one or two EVR triggers
+# used to fire the laser. The trigger rate PVs are passed in via vitara
+# configuration substitution.
+record( calc, "$(P):EVR_TRIG_RATE" )
+{
+    field( DESC, "EVR trigger rate" )
+    field( EGU,  "Hz" )
+    field( INPA, "$(EVR_TRIG_PRIMARY)" )
+    field( INPB, "$(EVR_TRIG_SECONDARY)" )
+    field( CALC, "A+B" )
+    field( PREC, "1" )
+    field( HIHI, "120.1" )
+    field( HHSV, "MAJOR" )
+    field( HIGH, "120.1" )
+    field( HSV,  "MINOR" )
+    field( LOW,  "119.9" )
+    field( LSV,  "MINOR" )
+    field( LOLO, "119.9" )
+    field (LLSV, "MAJOR" )
+}

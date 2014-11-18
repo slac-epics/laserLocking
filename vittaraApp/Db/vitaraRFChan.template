@@ -53,13 +53,23 @@ record( ai, "$(CH)PHASE_X30" )
 	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
+record( bo, "$(CH)LockBoardType" )
+{
+	field( DESC, "Locker type" )
+	field( VAL,	 "0" )
+	field( ZNAM, "Analog" )
+	field( ONAM, "Digital" )
+	field( PINI, "YES" )
+}
+
 record( calc, "$(CH)CALC_PHASE" )
 {
 	field( DESC, "Scaled phase calculation" )
 	field( INPA, "$(CH)PHASE_X30 CP" )
 	field( INPB, "$(CH)RF_PWR NPP" )
 	field( INPC, "$(CH)DIODE_PWR NPP" )
-	field( CALC, "(B*C)?(1000*A/SQR(B*C/2)):0" )
+	field( INPD, "$(CH)LockBoardType NPP" )
+	field( CALC, "D?(A*1000):((B*C)?(1000*A/SQR(B*C/2)):0)" )
 	field( EGU,  "fs" )
 	field( PREC, "3" )
 	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")

@@ -46,10 +46,18 @@ record(ao, "$(DEV):AUTO_SEARCH_TOL") {
   info(autosaveFields, "VAL HHSV HSV LSV LLSV HIHI HIGH LOW LOLO")
 }
 
+record( calcout, "$(DEV):PID_COARSE_FILT_ERR" ) {
+	field( DESC, "Filtered PID error" )
+	field( INPA, "$(DEV):PID_COARSE.ERR CP MS" )
+	field( INPB, "0.8" )
+	field( CALC, "A*(1-B)+VAL*B" )
+  info(autosaveFields, "HHSV HSV LSV LLSV HIHI HIGH LOW LOLO")
+}
+
 # Enable coarse PID when the piezo element is too far from it's center
 # ABS(piezo - center) > AUTO_ON_LIMIT
 # and the chamber freq motor is not moving
-# and the RF lock is enabled
+# but only if we're still locked to protect against runaway conditions
 record(calcout, "$(DEV):PID_COARSE_AUTO_ON") {
   field(DESC, "Enable coarse PID when too far")
   field(INPA, "$(DEV):PID_COARSE.ERR CP MS")
@@ -66,11 +74,11 @@ record(calcout, "$(DEV):PID_COARSE_AUTO_ON") {
 
 # Disable PID when the piezo element is near it's center
 # ABS(piezo - center) < AUTO_OFF_LIMIT
-# and the chamber freq motor is not moving
+# or if we lose lock, so the motor doesn't walk off
 # or if the RF lock is disabled
 record(calcout, "$(DEV):PID_COARSE_AUTO_OFF") {
   field(DESC, "Disable coarse PID when at mean")
-  field(INPA, "$(DEV):PID_COARSE.ERR CP MS")
+  field( INPA, "$(DEV):PID_COARSE_FILT_ERR CP MS" )
   field(INPB, "$(DEV):PID_COARSE_AUTO_OFF_LIMIT CP MS")
 #  field(INPC, "$(FREQ_MOTOR).DMOV")
   field(INPD, "$(DEV):PHASE_LOCKED CP MS")
@@ -109,7 +117,7 @@ record(calcout, "$(DEV):FREQ_MOTOR_VEL_CALC") {
   field(INPC, "$(DEV):PID_COARSE_VEL NPP NMS")
   field(CALC, "A=0?B:C")
   field(OUT, "$(FREQ_MOTOR).VELO CA NMS")
-  field(DISV, "0")
+#  field(DISV, "0")
 #  field(SDIS, "$(DEV):AUTO_MODE_ENABLE")
 }
 
