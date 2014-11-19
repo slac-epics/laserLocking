@@ -37,12 +37,11 @@ file ai_hist_pattern.db
 	{	"$(P):PID_COARSE_TARGET",	"rad"		}
 	{	"$(P):PIEZO_AMP_IN",		"V"			}
 	{	"$(P):PIEZO_AMP_MON",		"V"			}
+	{	"$(P):FS_CTR_TIME",         "ns"		}
 	{	"$(P):FS_TIMING_ERROR",     "ns"		}
 	{	"$(P):FS_BUCKET_ERROR",     "buckets"	}
 	{	"$(P):FS_UNFIXED_ERROR",    "ps"		}
 	{	"$(P):FS_TIC_ERROR",     	"ticks"		}
 	{	"$(SR620):GetMeasMean",	"s"			}
 	{	"$(SR620):GetMeasMean_ns",	"ns"	}
-	{	"$(SR620):GetOffsetInvMeasMean","s"	}
-	{	"$(SR620):GetOffsetInvMeasMean_ns","ns"	}
 }

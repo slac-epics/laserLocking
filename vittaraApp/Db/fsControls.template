@@ -415,3 +415,18 @@ record( calc, "$(P):EVR_TRIG_RATE" )
     field( LOLO, "119.9" )
     field (LLSV, "MAJOR" )
 }
+
+# The time in nanoseconds read by the SR620 frequency counter.
+# The raw value is subtracted from a 40,000 ns reference interval
+# so it can provides a comparable measurement to FS_TGT_TIME
+# Resolution is 50ps for the raw counter
+# 2014-02-19 klg: offset removed in favor of using offset record from SR620
+record( calc, "$(P):FS_CTR_TIME" )
+{
+	field( DESC, "Counter Time" )
+	field( INPA, "$(CNT_TI) CPP MS" )
+    field( CALC, "A*1e9")
+	field( PREC, "1" )
+	field( EGU,  "ns" )
+	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+}
