@@ -26,8 +26,7 @@ file ai_hist_pattern.db
 	{	"$(P):FREQ_MOTOR_POS",		"mm"		}
 	{	"$(P):FREQ_MOTOR_TGT",		"mm"		}
 	{	"$(P):PHASE_MOTOR_POS",		"ps"		}
-	{	"$(P):PID_COARSE_MOTOR_TGT", "mm"	}
-	{	"$(P):M1_MOTR_C", 			"mm"		}
+	{	"$(P):PID_COARSE_MOTOR_TGT", "mm"		}
 	{	"$(P):PID_COARSE_WRITE_MOTOR", "mm"		}
 	{	"$(P):PID_COARSE_D",		"rad"		}
 	{	"$(P):PID_COARSE_ERR",		"rad"		}
