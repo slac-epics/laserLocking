@@ -8,8 +8,6 @@ include $(TOP)/configure/CONFIG
 #=============================
 # xxxRecord.h will be created from xxxRecord.dbd
 
-DBDINC += epidRecord
-
 #=============================
 # build an ioc application
 

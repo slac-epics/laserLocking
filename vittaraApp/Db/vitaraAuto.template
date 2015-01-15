@@ -60,7 +60,7 @@ record( calcout, "$(DEV):PID_COARSE_FILT_ERR" ) {
 # but only if we're still locked to protect against runaway conditions
 record(calcout, "$(DEV):PID_COARSE_AUTO_ON") {
   field(DESC, "Enable coarse PID when too far")
-  field(INPA, "$(DEV):PID_COARSE.ERR CP MS")
+	field( INPA, "$(DEV):PID_COARSE_FILT_ERR CP MS" )
   field(INPB, "$(DEV):PID_COARSE_AUTO_ON_LIMIT CP MS")
   field(INPC, "$(FREQ_MOTOR).DMOV")
   field(INPD, "$(DEV):PHASE_LOCKED CP MS")

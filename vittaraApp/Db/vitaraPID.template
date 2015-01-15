@@ -24,7 +24,8 @@
 #                    disconnected.
 
 # Piezo Amplifier Monitor voltage (50mV/V)
-record(ai, "$(DEV):PIEZO_AMP_MON") {
+record( ai, "$(DEV):PIEZO_AMP_MON" )
+{
   field(DESC, "Piezo Amp Monitor")
   field(INP, "$(PIEZO_AMP_MON) CP MS")
   field(EGU, "V")
@@ -32,7 +33,8 @@ record(ai, "$(DEV):PIEZO_AMP_MON") {
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ai, "$(DEV):PIEZO_AMP_IN") {
+record( ai, "$(DEV):PIEZO_AMP_IN" )
+{
   field(DESC, "Piezo control voltage")
   field(INP, "$(PIEZO_AMP_IN) CP MS")
   field(EGU, "V")
@@ -40,7 +42,8 @@ record(ai, "$(DEV):PIEZO_AMP_IN") {
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ao, "$(DEV):PID_COARSE_TARGET") {
+record( ao, "$(DEV):PID_COARSE_TARGET" )
+{
   field(DESC, "Target setpoint for PID")
   field(EGU, "rad")
   field(PREC, "3")
@@ -69,7 +72,8 @@ record(ao, "$(DEV):PID_COARSE_TARGET") {
 #CVAL	Controlled value from INP link
 #ERR		Current Error (VAL - CVAL )
 #OVAL	Output value  (P + I + D )
-record(epid, "$(DEV):PID_COARSE") {
+record( epid, "$(DEV):PID_COARSE" )
+{
   field(DESC, "Piezo motor PID")
   field(SCAN, "10 second")
   field(STPL, "$(DEV):PID_COARSE_TARGET NPP")
@@ -89,7 +93,8 @@ record(epid, "$(DEV):PID_COARSE") {
 # Updates on each PID process,
 # but not when motor RBV changes, so we can
 # show where the PID thinks the motor should be
-record(calcout, "$(DEV):PID_COARSE_MOTOR_TGT") {
+record( calcout, "$(DEV):PID_COARSE_MOTOR_TGT" )
+{
   field(DESC, "Set coarse mtr with PID")
   field(CALC, "A+B")
   field(INPA, "$(DEV):PID_COARSE.OVAL NPP MS")
@@ -99,28 +104,32 @@ record(calcout, "$(DEV):PID_COARSE_MOTOR_TGT") {
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ai, "$(DEV):PID_COARSE_P") {
+record( ai, "$(DEV):PID_COARSE_P" )
+{
   field(DESC, "PID Phase PTerm")
   field(INP, "$(DEV):PID_COARSE.P CP MS")
   field(EGU, "V")
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ai, "$(DEV):PID_COARSE_I") {
+record( ai, "$(DEV):PID_COARSE_I" )
+{
   field(DESC, "PID Phase ITerm")
   field(INP, "$(DEV):PID_COARSE.I CP MS")
   field(EGU, "V")
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ai, "$(DEV):PID_COARSE_D") {
+record( ai, "$(DEV):PID_COARSE_D" )
+{
   field(DESC, "PID Phase DTerm")
   field(INP, "$(DEV):PID_COARSE.D CP MS")
   field(EGU, "V")
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ai, "$(DEV):PID_COARSE_ERR") {
+record( ai, "$(DEV):PID_COARSE_ERR" )
+{
   field(DESC, "PID Phase Error")
   field(INP, "$(DEV):PID_COARSE.ERR CP MS")
   field(EGU, "V")
@@ -131,7 +140,8 @@ record(ai, "$(DEV):PID_COARSE_ERR") {
 # write's OVAL to this record
 # This will only happen when the PID feedback is enabled,
 # so this is when we want to write the tgt to the motor
-record(ao, "$(DEV):PID_COARSE_OUTPUT") {
+record( ao, "$(DEV):PID_COARSE_OUTPUT" )
+{
   field(DESC, "PID output value")
   field(EGU, "mm")
   field(PREC, "4")
@@ -139,7 +149,8 @@ record(ao, "$(DEV):PID_COARSE_OUTPUT") {
   info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-record(ao, "$(DEV):PID_COARSE_WRITE_MOTOR") {
+record( ao, "$(DEV):PID_COARSE_WRITE_MOTOR" )
+{
   field(DESC, "Write PID tgt to motor")
   field(OMSL, "closed_loop")
   field(DOL, "$(DEV):PID_COARSE_MOTOR_TGT PP MS")
@@ -174,7 +185,8 @@ record(calcout, "$(DEV):PHASE_LOCKED_CALC") {
   field(PREC, "4")
 }
 
-record(bo, "$(DEV):PHASE_LOCKED") {
+record( bo, "$(DEV):PHASE_LOCKED" )
+{
   field(DESC, "Laser timing locked")
   field(ZNAM, "Unlocked")
   field(ZSV, "MAJOR")
@@ -184,7 +196,8 @@ record(bo, "$(DEV):PHASE_LOCKED") {
 }
 
 # RF_LOCK_ENABLE is same as FACET PID_MODE
-record(bo, "$(DEV):RF_LOCK_ENABLE") {
+record( bo, "$(DEV):RF_LOCK_ENABLE" )
+{
   field(DESC, "RF Locking Enabled")
   field(ZNAM, "Disabled")
   field(ZSV, "MINOR")
@@ -196,13 +209,15 @@ record(bo, "$(DEV):RF_LOCK_ENABLE") {
   info(autosaveFields, "VAL")
 }
 
-record(calcout, "$(DEV):RF_LOCK_ENABLE_CALC") {
+record( calcout, "$(DEV):RF_LOCK_ENABLE_CALC" )
+{
   field(INPA, "$(DEV):RF_LOCK_ENABLE NPP NMS")
   field(CALC, "A ? $(LOCK_ON_VAL=0.0) : $(LOCK_OFF_VAL=5.0)")
   field(OUT, "$(RF_LOCK) CA NMS")
 }
 
-record(ai, "$(DEV):PHASE_MOTOR_POS") {
+record( ai, "$(DEV):PHASE_MOTOR_POS" )
+{
   field(DESC, "Cur phase motor pos")
   field(INP, "$(PHASE_MOTOR).RBV CP MS")
   field(EGU, "ps")

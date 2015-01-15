@@ -54,6 +54,7 @@ record( ao, "$(P):FS_TGT_TIME_DIAL" )
     field( DESC, "Target Time (Dial Coord)" )
     field( PREC, "6" )
     field( EGU,  "ns" )
+    field( PINI, "YES" )
 	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
@@ -340,19 +341,6 @@ record( ao, "$(P):FS_NS_OFFSET" )
 	info(autosaveFields, "VAL DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-#SIOC:SYS0:ML01:AO498
-# Enable recovery from bcs trips
-# If enabled the software will
-# fix bcs trips resulting from timing shifts
-record( bo, "$(P):FS_ENABLE_BCS_FIX" )
-{
-	field( DESC, "BCS fix Enable" )
-	field( VAL,  "0" )
-	field( ZNAM, "Disabled" )
-	field( ONAM, "Enabled" )
-	field( PINI, "YES" )
-	info(autosaveFields, "VAL DESC ZSV OSV")
-}
 
 #SIOC:SYS0:ML01:AO499
 # last calibration error ns
@@ -402,9 +390,11 @@ record( calc, "$(P):EVR_TRIG_RATE" )
 {
     field( DESC, "EVR trigger rate" )
     field( EGU,  "Hz" )
-    field( INPA, "$(EVR_TRIG_PRIMARY)" )
-    field( INPB, "$(EVR_TRIG_SECONDARY)" )
-    field( CALC, "A+B" )
+    field( INPA, "$(EVR_TRIG_PRIMARY_RATE)" )
+    field( INPB, "$(EVR_TRIG_PRIMARY_TCTL)")
+    field( INPC, "$(EVR_TRIG_SECONDARY_RATE)" )
+    field( INPD, "$(EVR_TRIG_SECONDARY_TCTL)")
+    field( CALC, "A*B+C*D" )
     field( PREC, "1" )
     field( HIHI, "120.1" )
     field( HHSV, "MAJOR" )
