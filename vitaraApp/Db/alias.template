@@ -1,0 +1,5 @@
+# A template to allow aliases to be defined in substitutions files, for easy reference.
+# PV	- The original name of the PV to be aliased
+# ALIAS	- The alias to give to the original PV name
+
+alias( "$(PV)", "$(ALIAS)" )

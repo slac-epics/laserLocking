@@ -1,0 +1,7 @@
+# file runedm
+# Execute this file to launch EDM screens for TEK scope IOC
+#-------------------------------------------------------------------------------
+export EDMDATAFILES=.:$EDMDATAFILES
+
+#cd $EDMDATAFILES
+edm -x -eolc -m "LASR=Coherent 1,VITARA=VITARA1,P=OSC:LR20:20,CH=OSC:LR20:20:CH1_,MFREQ=M1_MOTR_C,MPHAS=M1_MOTR_IQ,SR620=OSC:LR20:20,SR620_IOC=SIOC:LR20:20,ioc=SIOC:LR20:20" vitaraOverview.edl&

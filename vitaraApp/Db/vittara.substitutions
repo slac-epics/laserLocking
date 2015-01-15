@@ -1,0 +1,19 @@
+file db/vittara.template
+{
+pattern
+{DEVICE,         mm2Hz, RDBD, KP,   MOTR_PID_SCAN, REF, DIFF, SCAN,     NSAM,  PAD }
+
+{"OSC:LR20:20:", 30150, "1", 0.001,  "10 second",  2,  0.25, "1 second", 100, "LASR:IN20:2:LSR2WTDIFF" }
+
+}
+
+# DEVICE: device prefix
+# mm2Hz: conversion factor between motor position and frequency
+# RDBD: retry deadband for the coarse motor
+# KP: proportional gain for coarse motor feedback
+# MOTR_PID_SCAN: motor PID loop update
+# REF: Desired piezo position (for coarse PID)
+# DIFF: Acceptible piezo difference (for coarse PID)
+# SCAN: statistics update
+# NSAM: number of samples in the analysis
+# PAD: PAD PV

@@ -1,0 +1,67 @@
+# Vitara RF Channel substitutions
+# Required Macros:
+#	DEV				PV prefix for all vitara PV's
+#	CH_DIODE		Analog Input  for RF Channel Diode Power
+#	CH_GAIN			Analog Output for RF Channel Gain
+#	CH_PHASE		Analog Input  for RF Channel Phase
+#	CH_PHASE_X30	Analog Input  for RF Channel Phase times 30
+#	CH_RF_PWR		Analog Input  for RF Channel Power
+file vitaraRFChan.template
+{
+	{
+	CH				= "OSC:LR20:10:CH1_",
+	CH_DIODE		= "ADC:LR20:10:AI0_CH13",
+	CH_GAIN			= "OSC:LR20:10:CH1_FEEDBACK_GAIN",
+	CH_PHASE		= "ADC:LR20:10:AI1_CH07",
+	CH_PHASE_X30	= "ADC:LR20:10:AI1_CH08",
+	CH_RF_PWR		= "ADC:LR20:10:AI0_CH12",
+	}
+}
+
+# Vitara Freq Search substitutions
+# Required Macros:
+#	DEV				PV prefix for all vitara PV's
+#	CNT_TI			Time interval counter (SR620)
+#	FREQ			Analog Input  for Vitara Freq Readback
+#	FREQ_MOTOR		Vitara freq motor
+#
+file vitaraFreqSearch.template
+{
+	{
+	DEV				= "OSC:LR20:10",
+	FREQ			= "OSC:LR20:10:FREQ_RBCK",
+	FREQ_MOTOR		= "OSC:LR20:10:M1_MOTR_C",
+	}
+}
+
+#
+# Macros for vitaraPID.template:
+#
+#	CH			RF Channel prefix
+#	DEV			device prefix
+#	FREQ_MOTOR	PV name of Vitara freq motor
+#	PHASE_MOTOR	PV name of phase control motor
+#	RF_LOCK		PV output that enables RF locking
+#	PIEZO_AMP_MON	Piezo Amp monitor output
+#	PIEZO_AMP_IN	Piezo Control Voltage
+file vitaraPID.template
+{
+	{
+	CH				= "OSC:LR20:10:CH1_",
+	DEV				= "OSC:LR20:10",
+	FREQ_MOTOR		= "OSC:LR20:10:M1_MOTR_C",
+	PHASE_MOTOR		= "OSC:LR20:10:M1_MOTR_IQ",
+	RF_LOCK			= "DAC:LR20:10:AO0_CH00",
+	PIEZO_AMP_IN		= "ADC:LR20:10:AI1_CH05",
+	PIEZO_AMP_MON		= "ADC:LR20:10:AI1_CH06",
+	}
+}
+
+file vitaraAuto.template
+{
+	{
+	CH				= "OSC:LR20:10:CH1_",
+	DEV				= "OSC:LR20:10",
+	FREQ_MOTOR		= "OSC:LR20:10:M1_MOTR_C",
+	}
+}
