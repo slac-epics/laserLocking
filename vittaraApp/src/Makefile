@@ -13,7 +13,7 @@ DBDINC += epidRecord
 #=============================
 # build an ioc application
 
-LIBRARY_IOC_Linux = vittara
+LIBRARY_IOC = vittara
 # vittara.dbd will be created and installed
 DBD += vittara.dbd
 
