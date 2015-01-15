@@ -981,7 +981,7 @@ record(dfanout, "$(DEVICE)PID_COARSE_OFF_") {
 #! Box(Box1,1789,773,4829,3101,0,16777215,null)
 #! TextBox(TB0,780,2120,340,2180,0,"Dialog",24,1,16777215,"Coarse motor PID to keep the piezo in the middle of range",null)
 #! TextBox(TB5,340,3260,1100,3380,0,"Dialog",28,1,16777215,"Automatic PID disable if not locked in/for 10 s",null)
-#! TextBox(TB4,260,80,1900,680,1,"Dialog",48,1,16777215,"Vittara oscillator\n-Coarse motor is used to set coarse frequency\n-Piezo motor is used in a PID to phase lock the frequency\n-Coarse motor PID loop is used to keep piezo motor in the middle of operating range.\n\nAuthor: Matjaz Kobal\nDate: Aug/2012",null)
+#! TextBox(TB4,260,80,1900,680,1,"Dialog",48,1,16777215,"Vitara oscillator\n-Coarse motor is used to set coarse frequency\n-Piezo motor is used in a PID to phase lock the frequency\n-Coarse motor PID loop is used to keep piezo motor in the middle of operating range.\n\nAuthor: Matjaz Kobal\nDate: Aug/2012",null)
 #! TextBox(TB3,320,820,1000,960,0,"Dialog",24,1,16777215,"Coarse motor positioning",null)
 #! TextBox(TB2,320,1680,760,1760,0,"Dialog",24,1,16777215,"Status",null)
 #! TextBox(TB1,1840,820,2380,940,0,"Dialog",24,1,16777215,"Data analysis: \n-archive: coarse motror, piezo, freq err\n-average, std: freq err, I, Q",null)
