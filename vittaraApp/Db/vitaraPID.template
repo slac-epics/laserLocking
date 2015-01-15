@@ -205,7 +205,7 @@ record( bo, "$(DEV):RF_LOCK_ENABLE" )
   field(OSV, "NO_ALARM")
   field(FLNK, "$(DEV):RF_LOCK_ENABLE_CALC PP NMS" )
   field(PINI, "YES")
-  field(SCAN, "10 second")
+  field(SCAN, "1 second")
   info(autosaveFields, "VAL")
 }
 

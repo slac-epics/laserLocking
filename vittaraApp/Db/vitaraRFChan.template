@@ -83,6 +83,7 @@ record( ao, "$(CH)FEEDBACK_GAIN" )
 	field( EGU,  "V" )
 	field( VAL,  "10.0" )
 	field( PREC, "3" )
+    field( PINI, "YES" )
 	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC VAL")
 }
 
