@@ -1,5 +1,7 @@
 Release Notes for the laserLocking package
 -----------------------------------
+laserLocking-R1-0-2: 2015-1-15 G. Brown
+    Got rid of misspelling "Vittara", with 2 "t"s.
 laserLocking-R1-0-1: 2014-11-18 G. Brown
 	Merged in changes from PCDS
 	- New frequency search scheme with more PVs
