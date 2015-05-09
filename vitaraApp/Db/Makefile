@@ -19,19 +19,6 @@ DB += vitaraFreqSearch.template
 DB += vitaraPID.template
 DB += vitaraRFChan.template
 
-#DB_INSTALLS += $(MOTOR)/db/motor.db
-
-
-
-#----------------------------------------------------
-# If <anyname>.db template is not named <anyname>*.template add
-#IOCADMIN_TEMPLATE += $(IOCADMIN)/db/access.db
-#IOCADMIN_TEMPLATE += $(IOCADMIN)/db/iocAdmin.db
-#IOCADMIN_TEMPLATE += $(IOCADMIN)/db/iocAdminRTEMS.db 
-IOCRELEASE_DB += iocRelease.db
-
-
-
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
