@@ -129,6 +129,7 @@ record(ao, "$(DEV):FREQ_ERR_SMOOTH") {
 record(ao, "$(DEV):FREQ_ERR_CORRECTION") {
   field(DESC, "Freq err corr factor")
   field(VAL, "149800")
+  field(EGU, "Hz/mm")
   field(PINI, "YES")
   field(PREC, "0")
   info(autosaveFields, "VAL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
