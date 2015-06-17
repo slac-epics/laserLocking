@@ -60,6 +60,7 @@ record( bo, "$(CH)LockBoardType" )
 	field( ZNAM, "Analog" )
 	field( ONAM, "Digital" )
 	field( PINI, "YES" )
+	info(autosaveFields, "VAL")
 }
 
 record( calc, "$(CH)CALC_PHASE" )
@@ -70,13 +71,15 @@ record( calc, "$(CH)CALC_PHASE" )
 	field( INPC, "$(CH)DIODE_PWR NPP" )
 	field( INPD, "$(CH)LockBoardType NPP" )
 	field( CALC, "D?(A*1000):((B*C)?(1000*A/SQR(B*C/2)):0)" )
-	field( EGU,  "fs" )
+	field( EGU,  "ps" )
 	field( PREC, "3" )
 	info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
 }
 
-# In LCLS, this is an IP231 output in the Laser app on ioc-lr20-ls01. Needs to be renamed.
-record( ao, "$(CH)FEEDBACK_GAIN" )
+# In LCLS, this is an IP231 output in the Laser app on ioc-lr20-ls01. 
+# So if SYS is defined as SYS0, change the PV name by tacking "_WRAPPER"
+# on to the end.
+record( ao, "$(CH)FEEDBACK_GAIN$($(SYS)='',SYS0='_WRAPPER','')" )
 {
 	field( DESC, "RF Feedback Gain" )
 	field( OUT,  "$(CH_GAIN) CA MS" )
