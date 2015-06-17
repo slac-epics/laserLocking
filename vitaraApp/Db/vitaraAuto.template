@@ -129,7 +129,7 @@ record(calcout, "$(DEV):AUTO_SEARCH_CALC") {
   field(INPD, "$(DEV):PHASE_LOCKED NPP NMS")
   field(INPE, "$(DEV):FREQ_SEARCH_ACTIVE  NPP MS")
   field(CALC, "A>B&&!D&&!E")
-  field(OUT, "$(DEV):FREQ_SEARCH_START    PP MS")
+  field(OUT, "$(DEV):FREQ_SEARCH_START    PP NMS")
   field(OOPT, "When Non-zero")
   field(DISV, "0")
   field(SDIS, "$(DEV):AUTO_MODE_ENABLE")
