@@ -18,7 +18,7 @@ DBD += vitara.dbd
 # vitara.dbd will be made up from these files:
 vitara_DBD += base.dbd
 #vitara_DBD += epidSupport.dbd <- now comes from std module
-vitara_DBD += std.dbd
+#vitara_DBD += std.dbd <- needed, but comes from the app using this module. Dependency problems otherwise.
 vitara_DBD += aCalcoutRecord.dbd
 vitara_DBD += calcSupport.dbd
 #vitara_DBD += compressStats.dbd Obsolete
@@ -37,7 +37,7 @@ vitara_SRCS_vxWorks += -nil-
 #vitara_SRCS += devEpidFast.c
 
 # required libraries
-vitara_LIBS += std seq pv
+# vitara_LIBS += std seq pv
 
 #vitara_LIBS += $(EPICS_BASE_IOC_LIBS)
 

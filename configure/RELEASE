@@ -25,9 +25,9 @@ BASE_MODULE_VERSION=$(EPICS_BASE_VER)
 
 CALC_MODULE_VERSION=calc-R3-1_1-0
 HISTORY_MODULE_VERSION=history_R2-1-0_1-0-1
-SEQ_MODULE_VERSION=seq-R2-1-6_1-3
+#SEQ_MODULE_VERSION=seq-R2-1-6_1-3
 SSCAN_MODULE_VERSION=sscan-R2-8-1_1-0
-STD_MODULE_VERSION=std-R3-1_1-3
+#STD_MODULE_VERSION=std-R3-1_1-3
 
 # ============================================================
 # Support module locations
