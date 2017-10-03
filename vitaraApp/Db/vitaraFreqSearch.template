@@ -27,7 +27,7 @@ record(ai, "$(DEV):FREQ_MOTOR_POS") {
   field(INP, "$(FREQ_MOTOR).RBV CP MS")
   field(EGU, "mm")
   field(PREC, "6")
-  info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+  info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC INP")
 }
 
 # Frequence target set point
