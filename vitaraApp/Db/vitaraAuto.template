@@ -70,6 +70,7 @@ record(calcout, "$(DEV):PID_COARSE_AUTO_ON") {
   field(OCAL, "1")
   field(DISV, "0")
   field(SDIS, "$(DEV):AUTO_MODE_ENABLE")
+  info(autosaveFields, "INPC")
 }
 
 # Disable PID when the piezo element is near it's center

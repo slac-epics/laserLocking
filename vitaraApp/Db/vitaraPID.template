@@ -101,7 +101,7 @@ record( calcout, "$(DEV):PID_COARSE_MOTOR_TGT" )
   field(INPB, "$(FREQ_MOTOR).RBV CA MS")
   field(EGU, "mm")
   field(PREC, "4")
-  info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC")
+  info(autosaveFields, "DESC EGU HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC INPB")
 }
 
 record( ai, "$(DEV):PID_COARSE_P" )
