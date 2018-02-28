@@ -35,7 +35,7 @@ SSCAN=$(EPICS_MODULES)/sscan/$(SSCAN_MODULE_VERSION)
 # ============================================================
 #  EPICS Base Location
 # ============================================================
-EPICS_BASE = $(BASE_SITE_TOP)/base/$(BASE_MODULE_VERSION)
+EPICS_BASE = $(EPICS_SITE_TOP)/base/$(BASE_MODULE_VERSION)
 
 # End of file
 
