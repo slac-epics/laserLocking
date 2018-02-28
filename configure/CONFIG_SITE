@@ -4,9 +4,9 @@
 # configuration variables in this file.
 #
 # Host/target specific settings can be specified in files named
-#  CONFIG_SITE.$(EPICS_HOST_ARCH).Common
-#  CONFIG_SITE.Common.$(T_A)
-#  CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
+#   CONFIG_SITE.$(EPICS_HOST_ARCH).Common
+#   CONFIG_SITE.Common.$(T_A)
+#   CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
 
 # CHECK_RELEASE controls the consistency checking of the support
 #   applications pointed to by the RELEASE* files.
@@ -17,21 +17,45 @@
 CHECK_RELEASE = YES
 
 # Set this when you only want to compile this application
-# for a subset of the cross-compiled target architectures
-# that Base is built for.
-#CROSS_COMPILER_TARGET_ARCHS = RTEMS-beatnik
-#CROSS_COMPILER_TARGET_ARCHS = RTEMS-uC5282
-#CROSS_COMPILER_TARGET_ARCHS = RTEMS-pc586
-#CROSS_COMPILER_TARGET_ARCHS = 
+#   for a subset of the cross-compiled target architectures
+#   that Base is built for.
+CROSS_COMPILER_TARGET_ARCHS = RTEMS-beatnik rhel6-86_64 linuxRT-x86_64
 
 # Set this when your IOC and the host use different paths
-# to access the application. This will be needed to boot
-# from a Microsoft FTP server or with some NFS mounts.
+#   to access the application. This will be needed to boot
+#   from a Microsoft FTP server or with some NFS mounts.
 # You must rebuild in the iocBoot directory for this to
-# take effect.
-#IOCS_APPL_TOP = <path to application top as seen by IOC>
+#   take effect.
+#IOCS_APPL_TOP = </IOC/path/to/application/top>
+#
+INSTALL_LOCATION = $(TOP)
+ifdef INSTALL_LOCATION_APP
+INSTALL_LOCATION = $(INSTALL_LOCATION_APP)
+endif
 
-# If you don't want to install into $(TOP) then
-# define INSTALL_LOCATION here
-#INSTALL_LOCATION=<fullpathname>
+INSTALL_PROTO = $(INSTALL_LOCATION)/proto
+
+# =======================================================
+# Let's install our IOC boot products:
+# envPaths and st.cmd
+# =======================================================
+INSTALL_LOCATION_STARTUP += $(INSTALL_LOCATION)/startup
+DIRECTORY_TARGETS += $(INSTALL_LOCATION_STARTUP)
+
+# dbst based database optimization (default: NO)
+DB_OPT = NO
+
+# =============================
+# Build Application Statically
+# =============================
+SHARED_LIBRARIES=NO
+STATIC_BUILD=YES
+
+# =============================
+PCRE=YES
+PCRE_PACKAGE_NAME=pcre
+PCRE_VERSION=8.37
+PCRE_TOP=$(PACKAGE_SITE_TOP)/$(PCRE_PACKAGE_NAME)/$(PCRE_VERSION)
+
+# End of file
 
