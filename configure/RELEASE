@@ -1,39 +1,4 @@
 #RELEASE Location of external products
-# Run "gnumake clean uninstall install" in the application
-# RELEASE Location of external products
-#
-# Read definitions of:
-#       EPICS_SITE_TOP
-#       BASE_MODULE_VERSION
-#       EPICS_MODULES
-# from one of the following options
--include $(TOP)/../../RELEASE_SITE
--include $(TOP)/RELEASE_SITE
 
-# Check that EPICS_MODULES was defined in a RELEASE_SITE file
-#-include $(TOP)/../../RELEASE_SITE.check
-
-# =============================================================
-# Define the version of modules needed by
-# IOC apps or other Support apps
-# =============================================================
-
-CALC_MODULE_VERSION=R3.6.1-0.1.0
-HISTORY_MODULE_VERSION=R2.6.0
-SSCAN_MODULE_VERSION=R2.10.2-0.1.0
-
-# ============================================================
-# Support module locations
-# ============================================================
-CALC=$(EPICS_MODULES)/calc/$(CALC_MODULE_VERSION)
-HISTORY=$(EPICS_MODULES)/history/$(HISTORY_MODULE_VERSION)
-SSCAN=$(EPICS_MODULES)/sscan/$(SSCAN_MODULE_VERSION)
-
-# ============================================================
-#  EPICS Base Location
-# ============================================================
-EPICS_BASE = $(BASE_SITE_TOP)/$(BASE_MODULE_VERSION)
-
-# End of file
-
+-include $(TOP)/configure/RELEASE.local
 
