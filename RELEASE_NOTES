@@ -1,5 +1,8 @@
 Release Notes for the laserLocking package
 -----------------------------------
+laserLocking-R2-0-0: 2018-1-12 K. Luchini
+    Upgrade from EPICS R3.14.12 to R3.15.5-1.0
+
 laserLocking-R1-0-5: 2017-4-24 J. Mock
     Add INP to autosave field
 
