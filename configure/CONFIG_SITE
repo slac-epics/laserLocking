@@ -8,32 +8,13 @@
 #   CONFIG_SITE.Common.$(T_A)
 #   CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
 
-# CHECK_RELEASE controls the consistency checking of the support
-#   applications pointed to by the RELEASE* files.
-# Normally CHECK_RELEASE should be set to YES.
-# Set CHECK_RELEASE to NO to disable checking completely.
-# Set CHECK_RELEASE to WARN to perform consistency checking but
-#   continue building anyway if conflicts are found.
-CHECK_RELEASE = YES
-
 # Set this when you only want to compile this application
 #   for a subset of the cross-compiled target architectures
 #   that Base is built for.
 CROSS_COMPILER_TARGET_ARCHS = RTEMS-beatnik rhel6-86_64 linuxRT-x86_64
 
-# Set this when your IOC and the host use different paths
-#   to access the application. This will be needed to boot
-#   from a Microsoft FTP server or with some NFS mounts.
-# You must rebuild in the iocBoot directory for this to
-#   take effect.
-#IOCS_APPL_TOP = </IOC/path/to/application/top>
-#
-INSTALL_LOCATION = $(TOP)
-ifdef INSTALL_LOCATION_APP
-INSTALL_LOCATION = $(INSTALL_LOCATION_APP)
-endif
-
-INSTALL_PROTO = $(INSTALL_LOCATION)/proto
+# If you don't want to install into $(TOP) then
+#INSTALL_LOCATION=<here>
 
 # =======================================================
 # Let's install our IOC boot products:
@@ -41,9 +22,6 @@ INSTALL_PROTO = $(INSTALL_LOCATION)/proto
 # =======================================================
 INSTALL_LOCATION_STARTUP += $(INSTALL_LOCATION)/startup
 DIRECTORY_TARGETS += $(INSTALL_LOCATION_STARTUP)
-
-# dbst based database optimization (default: NO)
-DB_OPT = NO
 
 # =============================
 # Build Application Statically
