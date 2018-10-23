@@ -1,5 +1,8 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.0.0: 2018-10-23 H. Slepicka
+    Migration to Git Workflow.
+
 laserLocking-R2-0-0: 2018-1-12 K. Luchini
     Upgrade from EPICS R3.14.12 to R3.15.5-1.0
 
