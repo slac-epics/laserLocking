@@ -19,9 +19,7 @@
 # Don't set your version to anything such as "test" that
 # could match a directory name.
 # =============================================================
-CALC_MODULE_VERSION=R3.6.1-0.1.0
 HISTORY_MODULE_VERSION=R2.6.0
-SSCAN_MODULE_VERSION=R2.10.2-0.1.0
 
 # ============================================================
 # Define module paths using pattern
@@ -29,9 +27,7 @@ SSCAN_MODULE_VERSION=R2.10.2-0.1.0
 #  or
 # FOO = /Full/Path/To/Development/Version
 # ============================================================
-CALC=$(EPICS_MODULES)/calc/$(CALC_MODULE_VERSION)
 HISTORY=$(EPICS_MODULES)/history/$(HISTORY_MODULE_VERSION)
-SSCAN=$(EPICS_MODULES)/sscan/$(SSCAN_MODULE_VERSION)
 
 # ============================================================
 #  EPICS Base Location
