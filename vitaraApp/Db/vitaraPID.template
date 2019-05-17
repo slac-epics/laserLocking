@@ -155,18 +155,20 @@ record( ao, "$(DEV):PID_COARSE_WRITE_MOTOR" )
   field(OMSL, "closed_loop")
   field(DOL, "$(DEV):PID_COARSE_MOTOR_TGT PP MS")
   field(OUT, "$(FREQ_MOTOR) CA NMS")
-# PCDS specific SDIS. Don't merge LBLN part
-#field( SDIS, "$(DEV):PID_COARSE_MOTOR_ENABLE NPP NMS" )
-  field(SDIS, "$(DEV):RF_LOCK_ENABLE CPP NMS")
+# This field now re-enabled for ASTA ATCA hybrid system
+  field( SDIS, "$(DEV):PID_COARSE_MOTOR_ENABLE NPP NMS" )
+#  field(SDIS, "$(DEV):RF_LOCK_ENABLE CPP NMS")
   field(DISV, "0")
 }
 
-# PCDS specific calculation. Don't merge LBLN part
-#record( calc, "$(DEV):PID_COARSE_MOTOR_ENABLE" )
-#{
-#field( DESC, "Enable motor if either system locked" )
-#field( INPA, "$(DEV):PHASE_LOCKED CPP NMS" )
-#}
+record( calc, "$(DEV):PID_COARSE_MOTOR_ENABLE" )
+{
+  field( DESC, "Enable motor if either system locked" )
+  field( INPA, "$(DEV):PHASE_LOCKED CPP NMS" )
+  field( INPB, "$(LBNL_FS_LOCKED) CPP NMS" )
+  field( CALC, "A||B" )
+}
+
 record(calcout, "$(DEV):PHASE_LOCKED_CALC") {
   field(INPA, "$(DEV):RF_LOCK_ENABLE CPP MS")
   field(INPB, "$(DEV):PIEZO_AMP_MON CPP MS")
