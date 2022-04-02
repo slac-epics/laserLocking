@@ -1,0 +1,7 @@
+record(sub, "$(NAME):CONV") {
+    field(DESC, "$(DESC)")
+    field(INAM, "$(INAM)")
+    field(SNAM, "$(SNAM)")
+    field(INPA, "$(NAME) $(PP)")
+    field(SCAN, "$(SCAN)")
+}

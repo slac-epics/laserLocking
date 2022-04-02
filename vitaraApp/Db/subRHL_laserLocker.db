@@ -1,0 +1,9 @@
+record(sub, "$(NAME)") {
+    field(DESC, "$(DESC)")
+    field(INAM, "$(INAM)")
+    field(SNAM, "$(SNAM)")
+    field(INPA, "$(SRC) $(PP)")
+    field(SCAN, "$(SCAN)")
+    field(EGU,  "$(EGU)")
+    field(PREC, "$(PREC)")
+}

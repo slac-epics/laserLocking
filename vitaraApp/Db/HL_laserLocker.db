@@ -1,0 +1,61 @@
+record(bi, "$(NAME):PHASE_LOCKED")
+{
+    field(INP,  "$(NAME):PHASE_LOCKED_SUB PP")
+    field(ZNAM, "Unlocked")
+    field(ONAM, "Locked")
+    field(SCAN, "1 second")
+    field(ZSV,  "MAJOR")
+    field(OSV,  "NO_ALARM")
+}
+
+record(bo, "$(NAME):RF_LOCK_ENABLE")
+{
+    field(PINI, "YES")
+    field(OUT, "$(NAME):RF_LOCK_ENABLE_CALC.A PP")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(calcout, "$(NAME):RF_LOCK_ENABLE_CALC")
+{
+    field(CALC, "A?0:1")
+    field(OUT,  "$(NAME):M:ATOP:ACORE:SM:Laserdisable:St PP")
+}
+
+
+record(ao, "$(NAME):PHASE_SWEEP")
+{
+    field(PINI, "YES")
+    field(OUT,  "$(NAME):PHASE_SWEEP_SUB.A PP")
+    field(EGU,  "PS")
+    field(DESC, "Request Phase")
+}
+
+record(sub, "$(NAME):PHASE_SWEEP_SUB")
+{
+    field(INAM, "LL16bitInit")
+    field(SNAM, "LLFemto32bit")
+    field(FLNK, "$(NAME):PHASE_SWEEP_AO")
+}
+
+record(ao, "$(NAME):PHASE_SWEEP_AO")
+{
+    field(DOL, "$(NAME):PHASE_SWEEP_SUB")
+    field(OUT, "$(NAME):M:ATOP:ACORE:SM:phaseshiftrequest:St PP")
+    field(OMSL, "closed_loop")
+    field(FLNK, "$(NAME):PHASE_SWEEP_SEQ")
+}
+
+record(seq, "$(NAME):PHASE_SWEEP_SEQ")
+{
+    field(DOL1, "2")
+    field(DOL2, "0")
+    field(LNK1, "$(NAME):M:ATOP:ACORE:SM:CMDreg:St PP")
+    field(LNK2, "$(NAME):M:ATOP:ACORE:SM:CMDreg:St PP")
+    field(SELM, "All")
+    field(DLY1, ".1")
+    field(DLY2, ".2")
+}
+
+
+
