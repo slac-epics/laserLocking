@@ -1,5 +1,9 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.1.0: 2022-04-01 K. luchini (luchini):
+    - add kukhee's ATCA laser locking db and source
+    - generate a library
+
 R3.0.2: 2020-07-23 K. luchini (luchini):
     - upgrade to  R7.0.3.1-1.0
     - upgrade histor module to R2.7.0
