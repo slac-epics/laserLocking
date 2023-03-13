@@ -1,5 +1,10 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.1.1: 2023-03-17 K. luchini (luchini):
+    - Modied macro LBNL_FS_LOCKED in vitaraApp/Db/vitaraPID.template
+      and use default as <blank>. If adding macro then you now need
+      also include CPP NMS
+
 R3.1.0: 2022-04-01 K. luchini (luchini):
     - add kukhee's ATCA laser locking db and source
     - generate a library
