@@ -165,7 +165,7 @@ record( calc, "$(DEV):PID_COARSE_MOTOR_ENABLE" )
 {
   field( DESC, "Enable motor if either system locked" )
   field( INPA, "$(DEV):PHASE_LOCKED CPP NMS" )
-# The LBNN_FS_LOCKED="<pv> CPP NMS" for PSCD. Otherwise,
+# The LBNL_FS_LOCKED="<pv> CPP NMS" for PSCD. Otherwise,
 # used the default of <blank>
   field( INPB, "$(LBNL_FS_LOCKED="")" )
   field( CALC, "A||B" )
