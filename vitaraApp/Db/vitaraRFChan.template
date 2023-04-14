@@ -79,10 +79,10 @@ record( calc, "$(CH)CALC_PHASE" )
 # In LCLS, this is an IP231 output in the Laser app on ioc-lr20-ls01. 
 # So if SYS is defined as SYS0, change the PV name by tacking "_WRAPPER"
 # on to the end.
-record( ao, "$(CH)FEEDBACK_GAIN$($(SYS)='',SYS0='_WRAPPER','')" )
+record( ao, "$(CH)FEEDBACK_GAIN" )
 {
 	field( DESC, "RF Feedback Gain" )
-	field( OUT,  "$(CH_GAIN) CA MS" )
+$(LNK="")	field( OUT,  "$(CH_GAIN) CA MS" )
 	field( EGU,  "V" )
 	field( VAL,  "10.0" )
 	field( PREC, "3" )
