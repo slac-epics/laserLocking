@@ -1,5 +1,8 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.1.2: 2023-04-14 S. Alverson (alverson)
+    - Modified vitaraRfChan.template to remove non-functional "WRAPPER" macro logic for GAIN PV and added macro to comment out OUT field instead
+
 R3.1.1: 2023-03-17 K. luchini (luchini):
     - Modied macro LBNL_FS_LOCKED in vitaraApp/Db/vitaraPID.template
       and use default as <blank>. If adding macro then you now need
