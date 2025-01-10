@@ -16,6 +16,7 @@ DB += ai_hist_calcPhase.db
 DB += fsControls.template
 DB += vitaraAuto.template
 DB += vitaraFreqSearch.template
+DB += vitaraFreqSearch_limit_motor.template
 DB += vitaraPID.template
 DB += vitaraRFChan.template
 DB += subR_laserLocker.db
