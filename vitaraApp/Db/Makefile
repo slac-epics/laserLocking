@@ -18,6 +18,10 @@ DB += vitaraAuto.template
 DB += vitaraFreqSearch.template
 DB += vitaraPID.template
 DB += vitaraRFChan.template
+DB += subR_laserLocker.db
+DB += subRHL_laserLocker.db
+DB += HL_laserLocker.db
+DB += alias.db
 
 include $(TOP)/configure/RULES
 #----------------------------------------

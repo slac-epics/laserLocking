@@ -1,5 +1,30 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.1.3: 2024-01-10 S. Alverson (alverson)
+    - Adding PCDS frequency search template with motor move limits
+
+R3.1.2: 2023-04-14 S. Alverson (alverson)
+    - Modified vitaraRfChan.template to remove non-functional "WRAPPER" macro logic for GAIN PV and added macro to comment out OUT field instead
+
+R3.1.1: 2023-03-17 K. luchini (luchini):
+    - Modied macro LBNL_FS_LOCKED in vitaraApp/Db/vitaraPID.template
+      and use default as <blank>. If adding macro then you now need
+      also include CPP NMS
+
+R3.1.0: 2022-04-01 K. luchini (luchini):
+    - add kukhee's ATCA laser locking db and source
+    - generate a library
+
+R3.0.2: 2020-07-23 K. luchini (luchini):
+    - upgrade to  R7.0.3.1-1.0
+    - upgrade histor module to R2.7.0
+
+R3.0.1: 2019-05-17 S. Alverson (alverson)
+    - Adding back in commented PVs to allow for ASTA ATCA hybrib operation (per K. Gumerlock)
+
+R3.0.0: 2018-10-23 H. Slepicka
+    Migration to Git Workflow.
+
 laserLocking-R2-0-0: 2018-1-12 K. Luchini
     Upgrade from EPICS R3.14.12 to R3.15.5-1.0
 
