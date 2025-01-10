@@ -1,5 +1,8 @@
 Release Notes for the laserLocking package
 -----------------------------------
+R3.1.3: 2024-01-10 S. Alverson (alverson)
+    - Adding PCDS frequency search template with motor move limits
+
 R3.1.2: 2023-04-14 S. Alverson (alverson)
     - Modified vitaraRfChan.template to remove non-functional "WRAPPER" macro logic for GAIN PV and added macro to comment out OUT field instead
 
